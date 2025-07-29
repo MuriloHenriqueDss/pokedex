@@ -8,98 +8,333 @@ if ($pesquisa != '') {
 }
 $result = $conn->query($sql);
 ?>
-<link rel="stylesheet" href="./uploads/css/pesquisar.css">
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pesquisar Pokémon</title>
+<link rel="stylesheet" href="./uploads/css/pesquisar.css" />
 <style>
-  .navbar-pokemon {
-    position: fixed;
-    top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100%;
-    background: #f7d02c;
-    border-right: 4px solid #2a75bb;
-    transition: left 0.3s ease;
-    z-index: 1000;
-    padding-top: 80px;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-  .navbar-pokemon.open {
-    left: 0;
-  }
+/* Navbar lateral */
+.navbar-pokemon {
+  position: fixed;
+  top: 0;
+  left: -250px; /* escondido à esquerda */
+  width: 250px;
+  height: 100%;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  padding-top: 80px;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.2);
+}
 
-  .navbar-links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+.navbar-pokemon.open {
+  left: 0;
+}
 
-  .navbar-links li {
-    margin: 20px;
-    text-align: center;
-  }
+.navbar-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-  .navbar-links a {
-    text-decoration: none;
-    color: #2a75bb;
-    font-family: 'Press Start 2P', Arial, sans-serif;
-    font-size: 12px;
-  }
+.navbar-links li {
+  margin: 20px;
+  text-align: center;
+}
 
-  .navbar-logo-text {
-    display: none;
-  }
+.navbar-links a {
+  text-decoration: none;
+  color: #2a75bb;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  font-size: 12px;
+}
 
-  .navbar-hamburger {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: none;
-    border: none;
-    z-index: 1100;
-    cursor: pointer;
-    animation: pulse 2s infinite;
-  }
+/* Botão Pokébola */
+.navbar-hamburger {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+  animation: pulse 2s infinite;
+  padding: 0;
+}
 
-  .navbar-hamburger svg {
-    transition: transform 0.3s ease;
-  }
+.navbar-hamburger svg {
+  display: block;
+  transition: transform 0.3s ease;
+  width: 50px;
+  height: 50px;
+}
 
-  .navbar-hamburger.rotated svg {
-    transform: rotate(90deg);
-  }
+.navbar-hamburger.rotated svg {
+  transform: rotate(90deg);
+}
 
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Outras estilizações da página */
+body {
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  background: linear-gradient(135deg, #f7d02c 0%, #ee8130 100%);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pesquisa-form {
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 40px;
+  z-index: 1;
+  position: relative;
+}
+
+.pesquisa-form input[type="text"] {
+  padding: 12px;
+  border-radius: 12px;
+  border: 2px solid #3b4cca;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  width: 240px;
+  background: #fff;
+  font-size: 0.75rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.pesquisa-form input[type="text"]:focus {
+  border-color: #ee8130;
+  box-shadow: 0 0 8px #ee8130;
+  outline: none;
+}
+
+.pesquisa-form input[type="submit"] {
+  background: linear-gradient(90deg, #ffcb05 0%, #3b4cca 100%);
+  color: #fff;
+  border: 2px solid #2a75bb;
+  border-radius: 16px;
+  padding: 10px 24px;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 0.75rem;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.pesquisa-form input[type="submit"]:hover {
+  background: linear-gradient(90deg, #ee8130 0%, #3b4cca 100%);
+  transform: scale(1.08) rotate(-2deg);
+  box-shadow: 0 4px 16px #3b4cca;
+}
+
+.pesquisa-container {
+  max-width: 1200px;
+  margin: 0 auto 40px auto;
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+  z-index: 1;
+  position: relative;
+}
+
+.pokemon-card {
+  position: relative;
+  background: rgba(255,255,255,0.98);
+  border: 4px solid #000;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(59,76,202,0.2);
+  width: 260px;
+  padding: 32px 24px 24px 24px;
+  margin: 0;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  cursor: pointer;
+  text-align: center;
+  font-size: 0.7rem;
+}
+
+.pokemon-card:hover {
+  transform: scale(1.07) rotate(-2deg);
+  box-shadow: 0 16px 48px #3b4cca99;
+  border-color: #3b4cca;
+  filter: brightness(1.08) contrast(1.1);
+}
+
+.pokemon-card .pokeball-tip {
+  position: absolute;
+  top: -28px;
+  right: -28px;
+  width: 56px;
+  height: 56px;
+  z-index: 10;
+  transition: transform 0.3s;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 8px #ee8130);
+}
+
+.pokemon-card:hover .pokeball-tip {
+  transform: rotate(30deg) scale(1.2);
+  filter: drop-shadow(0 0 16px #ee8130);
+}
+
+.pokeball-tip svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.pokemon-card h3 {
+  font-size: 1.2rem;
+  color: #3b4cca;
+  margin: 0 0 12px 0;
+  text-shadow: 1px 1px #ffcb05;
+}
+
+.pokemon-card .tipo {
+  font-size: 1rem;
+  color: #ee8130;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.pokemon-card .stats {
+  font-size: 0.95rem;
+  color: #2a75bb;
+  margin-bottom: 8px;
+}
+
+.pokemon-card .local {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.pokemon-card .foto {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  border: 2px solid #3b4cca;
+  background: #f7d02c;
+  box-shadow: 0 2px 8px #ee8130;
+  transition: box-shadow 0.2s;
+}
+
+.pokemon-card:hover .foto {
+  box-shadow: 0 4px 16px #3b4cca;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #fff;
+  border: 4px solid #3b4cca;
+  border-radius: 20px;
+  padding: 30px;
+  width: 90%;
+  max-width: 400px;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  color: #222;
+  position: relative;
+  text-align: center;
+}
+
+.modal-content img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+.modal-content p {
+  font-size: 10px;
+  margin: 10px 0;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #f00;
+}
+
+/* Responsivo */
+@media (max-width: 700px) {
+  .pesquisa-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
   }
+  .pokemon-card {
+    width: 90vw;
+    max-width: 340px;
+  }
+}
 </style>
+</head>
+<body>
 
-<nav class="navbar-pokemon">
+
+<nav class="navbar-pokemon" id="navbar">
   <button class="navbar-hamburger" id="navbarToggle" aria-label="Abrir menu">
-    <svg viewBox="0 0 32 32" width="40" height="40">
-      <circle cx="16" cy="16" r="14" fill="#fff" stroke="#2a75bb" stroke-width="3"/>
-      <path d="M16,2 a14,14 0 0,1 14,14 h-28 a14,14 0 0,1 14,-14" fill="#ee1c25" stroke="#2a75bb" stroke-width="3"/>
-      <rect x="2" y="14" width="28" height="4" fill="#222"/>
-      <circle cx="16" cy="16" r="5" fill="#fff" stroke="#2a75bb" stroke-width="2"/>
-      <circle cx="16" cy="16" r="2.5" fill="#ccc" stroke="#222" stroke-width="1"/>
+    <svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="28" cy="28" r="24" fill="#fff" />
+      <path d="M28,4 a24,24 0 0,1 24,24 h-48 a24,24 0 0,1 24,-24" fill="#ee1c25" />
+      <rect x="4" y="24" width="48" height="8" fill="#222" />
+      <circle cx="28" cy="28" r="10" fill="#fff" stroke="#000" stroke-width="4" />
+      <circle cx="28" cy="28" r="5" fill="#ccc" stroke="#222" stroke-width="2" />
     </svg>
   </button>
-  <span class="navbar-logo-text">Pokédex</span>
+
   <ul class="navbar-links" id="navbarMenu">
     <li><a href="index.php">Início</a></li>
     <li><a href="cadastrar.php">Cadastrar</a></li>
     <li><a href="pesquisar.php">Pesquisar</a></li>
-    <li><a href="sobre.php">Listar</a></li>
+    <li><a href="listar.php">Listar</a></li>
   </ul>
 </nav>
 
 
 <!-- Formulário de pesquisa -->
-<div style="text-align:center; margin-top:40px;">
+<div class="pesquisa-form">
   <form method="get" action="pesquisar.php">
-    <input type="text" name="pesquisa" placeholder="Pesquisar Pokémon" value="<?php echo htmlspecialchars($pesquisa); ?>" style="padding:10px; border-radius:12px; border:2px solid #3b4cca; font-family:'Press Start 2P',Arial,sans-serif; width:220px;">
-    <input type="submit" value="Buscar" style="background:linear-gradient(90deg,#ffcb05 0%,#3b4cca 100%); color:#fff; border:2px solid #2a75bb; border-radius:16px; padding:10px 24px; font-family:'Press Start 2P',Arial,sans-serif; cursor:pointer;">
+    <input type="text" name="pesquisa" placeholder="Pesquisar Pokémon" value="<?php echo htmlspecialchars($pesquisa); ?>">
+    <input type="submit" value="Buscar">
   </form>
 </div>
 
@@ -115,8 +350,8 @@ $result = $conn->query($sql);
     '<?php echo addslashes($row['localizacao']); ?>',
     '<?php echo addslashes($row['foto']); ?>'
   )">
-    <div class="pokeball-tip">
-      <svg viewBox="0 0 56 56">
+    <div class="pokeball-tip" aria-hidden="true">
+      <svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
         <path d="M28,4 a24,24 0 0,1 24,24 h-48 a24,24 0 0,1 24,-24" fill="#ee1c25" stroke="#000" stroke-width="4"/>
         <path d="M52,28 a24,24 0 0,1 -48,0 h48" fill="#fff" stroke="#000" stroke-width="4"/>
         <rect x="4" y="24" width="48" height="8" fill="#222"/>
@@ -125,7 +360,7 @@ $result = $conn->query($sql);
       </svg>
     </div>
     <?php if($row['foto']): ?>
-      <img src="<?php echo htmlspecialchars($row['foto']); ?>" alt="Foto" class="foto">
+      <img src="<?php echo htmlspecialchars($row['foto']); ?>" alt="Foto de <?php echo htmlspecialchars($row['nome']); ?>" class="foto">
     <?php endif; ?>
     <h3><?php echo htmlspecialchars($row['nome']); ?></h3>
     <div class="tipo"><?php echo htmlspecialchars($row['tipo']); ?></div>
@@ -139,11 +374,11 @@ $result = $conn->query($sql);
 <?php endwhile; ?>
 </div>
 
-<!-- Modal de detalhes do Pokémon -->
-<div id="pokemonModal" class="modal hidden">
+<!-- Modal -->
+<div id="pokemonModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalNome">
   <div class="modal-content">
-    <span class="close-btn" onclick="fecharModal()">&times;</span>
-    <img id="modalFoto" src="" alt="Imagem Pokémon">
+    <button class="close-btn" aria-label="Fechar modal" onclick="fecharModal()">&times;</button>
+    <img id="modalFoto" src="" alt="Imagem do Pokémon">
     <h2 id="modalNome"></h2>
     <p><strong>Tipo:</strong> <span id="modalTipo"></span></p>
     <p><strong>HP:</strong> <span id="modalHp"></span></p>
@@ -168,14 +403,16 @@ $result = $conn->query($sql);
   function fecharModal() {
     document.getElementById('pokemonModal').classList.add('hidden');
   }
-</script>
 
-<script>
+  // Navbar toggle
   const navbarToggle = document.getElementById('navbarToggle');
-  const navbarMenu = document.getElementById('navbarMenu');
+  const navbar = document.getElementById('navbar');
 
   navbarToggle.addEventListener('click', () => {
-    navbarMenu.classList.toggle('open');
+    navbar.classList.toggle('open');
     navbarToggle.classList.toggle('rotated');
   });
 </script>
+
+</body>
+</html>

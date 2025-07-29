@@ -1,57 +1,76 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+  .navbar-pokemon {
+    position: fixed;
+    top: 0;
+    left: -250px; /* escondido à esquerda */
+    width: 250px;
+    height: 100%;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease;
+    z-index: 1000;
+    padding-top: 80px;
+    font-family: 'Press Start 2P', Arial, sans-serif;
+  }
 
-.navbar-pokemon {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-  background: linear-gradient(90deg, #3b4cca, #ffcb05);
-  color: white;
-  position: relative;
-  z-index: 100;
-}
+  /* Navbar aberto */
+  .navbar-pokemon.open {
+    left: 0;
+  }
 
-.navbar-hamburger {
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 101;
-}
+  /* Links */
+  .navbar-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 
-.navbar-logo-text {
-  font-family: 'Press Start 2P', sans-serif;
-  font-size: 18px;
-  color: #fff;
-}
+  .navbar-links li {
+    margin: 20px 0;
+    text-align: center;
+  }
 
-.navbar-links {
-  position: fixed;
-  top: 0;
-  right: -260px;
-  width: 260px;
-  height: 100%;
-  background: #f2f2f2;
-  box-shadow: -4px 0 12px rgba(0,0,0,0.2);
-  transition: right 0.3s ease;
-  padding-top: 80px;
-  list-style: none;
-  z-index: 99;
-}
+  .navbar-links a {
+    text-decoration: none;
+    color: #2a75bb;
+    font-size: 14px;
+    display: block;
+    padding: 8px 0;
+    transition: color 0.2s;
+  }
 
-.navbar-links.open {
-  right: 0;
-}
+  .navbar-links a:hover {
+    color: #ee8130;
+  }
 
-.navbar-links li {
-  padding: 12px 24px;
-}
+  /* Botão da pokébola */
+  .navbar-hamburger {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1100;
+    animation: pulse 2s infinite;
+  }
 
-.navbar-links li a {
-  text-decoration: none;
-  color: #333;
-  font-family: 'Press Start 2P', sans-serif;
-  font-size: 12px;
-}
+  /* Animação da pokébola */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  .navbar-hamburger svg {
+    width: 50px;
+    height: 50px;
+    transition: transform 0.3s ease;
+  }
+
+  .navbar-hamburger.rotated svg {
+    transform: rotate(90deg);
+  }
+
 /* Responsivo para telas pequenas */
 @media (max-width: 700px) {
     .navbar-pokemon {
