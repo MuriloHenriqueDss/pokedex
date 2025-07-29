@@ -1,26 +1,80 @@
 <?php
 include 'conexao.php';
 
-$pesquisa = "";
-if (isset($_GET['pesquisa'])) {
-    $pesquisa = $conn->real_escape_string($_GET['pesquisa']);
-    $sql = "SELECT * FROM pokemons WHERE nome LIKE '%$pesquisa%'";
-} else {
-    $sql = "SELECT * FROM pokemons";
+$pesquisa = isset($_GET['pesquisa']) ? $conn->real_escape_string($_GET['pesquisa']) : '';
+$sql = "SELECT * FROM pokemons";
+if ($pesquisa != '') {
+    $sql .= " WHERE nome LIKE '%$pesquisa%' OR tipo LIKE '%$pesquisa%'";
 }
 $result = $conn->query($sql);
 ?>
 <link rel="stylesheet" href="./uploads/css/pesquisar.css">
+<style>
+  .navbar-pokemon {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background: #f7d02c;
+    border-right: 4px solid #2a75bb;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    padding-top: 80px;
+  }
 
-<!-- Pokébolas no fundo -->
-<div class="pokeball-bg">
-  <div class="pokeball"></div>
-  <div class="pokeball"></div>
-  <div class="pokeball"></div>
-  <div class="pokeball"></div>
-</div>
+  .navbar-pokemon.open {
+    left: 0;
+  }
 
-<!-- Navbar -->
+  .navbar-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .navbar-links li {
+    margin: 20px;
+    text-align: center;
+  }
+
+  .navbar-links a {
+    text-decoration: none;
+    color: #2a75bb;
+    font-family: 'Press Start 2P', Arial, sans-serif;
+    font-size: 12px;
+  }
+
+  .navbar-logo-text {
+    display: none;
+  }
+
+  .navbar-hamburger {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    z-index: 1100;
+    cursor: pointer;
+    animation: pulse 2s infinite;
+  }
+
+  .navbar-hamburger svg {
+    transition: transform 0.3s ease;
+  }
+
+  .navbar-hamburger.rotated svg {
+    transform: rotate(90deg);
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+</style>
+
 <nav class="navbar-pokemon">
   <button class="navbar-hamburger" id="navbarToggle" aria-label="Abrir menu">
     <svg viewBox="0 0 32 32" width="40" height="40">
@@ -36,9 +90,10 @@ $result = $conn->query($sql);
     <li><a href="index.php">Início</a></li>
     <li><a href="cadastrar.php">Cadastrar</a></li>
     <li><a href="pesquisar.php">Pesquisar</a></li>
-    <li><a href="sobre.php">Sobre</a></li>
+    <li><a href="sobre.php">Listar</a></li>
   </ul>
 </nav>
+
 
 <!-- Formulário de pesquisa -->
 <div style="text-align:center; margin-top:40px;">
@@ -98,7 +153,6 @@ $result = $conn->query($sql);
   </div>
 </div>
 
-<!-- Script para abrir/fechar o modal -->
 <script>
   function abrirModal(nome, tipo, hp, ataque, defesa, localizacao, foto) {
     document.getElementById('modalNome').innerText = nome;
@@ -114,4 +168,14 @@ $result = $conn->query($sql);
   function fecharModal() {
     document.getElementById('pokemonModal').classList.add('hidden');
   }
+</script>
+
+<script>
+  const navbarToggle = document.getElementById('navbarToggle');
+  const navbarMenu = document.getElementById('navbarMenu');
+
+  navbarToggle.addEventListener('click', () => {
+    navbarMenu.classList.toggle('open');
+    navbarToggle.classList.toggle('rotated');
+  });
 </script>

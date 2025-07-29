@@ -1,58 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 .navbar-pokemon {
-    background: linear-gradient(90deg, #3b4cca 0%, #ffcb05 100%);
-    padding: 18px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 0 0 32px 32px;
-    box-shadow: 0 6px 24px #3b4cca33;
-    font-family: 'Press Start 2P', Arial, sans-serif;
-    position: relative;
-    z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background: linear-gradient(90deg, #3b4cca, #ffcb05);
+  color: white;
+  position: relative;
+  z-index: 100;
 }
 
-.navbar-logo {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    font-size: 1.4rem;
-    color: #fff;
-    text-shadow: 2px 2px #2a75bb;
-    letter-spacing: 2px;
+.navbar-hamburger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 101;
 }
 
-.navbar-logo svg {
-    filter: drop-shadow(0 2px 6px #ee8130);
+.navbar-logo-text {
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 18px;
+  color: #fff;
 }
 
 .navbar-links {
-    list-style: none;
-    display: flex;
-    gap: 36px;
-    margin: 0;
-    padding: 0;
+  position: fixed;
+  top: 0;
+  right: -260px;
+  width: 260px;
+  height: 100%;
+  background: #f2f2f2;
+  box-shadow: -4px 0 12px rgba(0,0,0,0.2);
+  transition: right 0.3s ease;
+  padding-top: 80px;
+  list-style: none;
+  z-index: 99;
+}
+
+.navbar-links.open {
+  right: 0;
+}
+
+.navbar-links li {
+  padding: 12px 24px;
 }
 
 .navbar-links li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.05rem;
-    padding: 10px 22px;
-    border-radius: 16px;
-    transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
-    font-family: 'Press Start 2P', Arial, sans-serif;
-    box-shadow: 0 2px 8px transparent;
+  text-decoration: none;
+  color: #333;
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 12px;
 }
-
-.navbar-links li a:hover {
-    background: #ee8130;
-    color: #3b4cca;
-    transform: scale(1.09);
-    box-shadow: 0 2px 12px #2a75bb44;
-}
-
 /* Responsivo para telas pequenas */
 @media (max-width: 700px) {
     .navbar-pokemon {

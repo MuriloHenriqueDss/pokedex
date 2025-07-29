@@ -6,6 +6,13 @@
     <title>Pokédex - Início</title>
     <link rel="stylesheet" href="./uploads/css/pesquisar.css">
     <style>
+        body {
+            position: relative;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: #f7d02c;
+        }
         .navbar-pokemon {
             background: linear-gradient(90deg, #3b4cca 0%, #ffcb05 100%);
             padding: 16px 24px;
@@ -72,6 +79,27 @@
             color: #3b4cca;
             transform: scale(1.08);
         }
+        .btn-pokedex {
+            display: flex;
+            background: linear-gradient(90deg, #ffcb05 0%, #3b4cca 100%);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 16px;
+            text-decoration: none;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Press Start 2P', Arial, sans-serif;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: background 0.3s, color 0.3s, transform 0.3s;
+            margin-top: 20%;
+        }
+        .index-main {
+            text-align: center;
+            color: #fff;
+            font-family: 'Press Start 2P', Arial, sans-serif;
+            margin-top: 100px;
+        }
     </style>
 </head>
 <body>
@@ -98,7 +126,7 @@
         <h1>Bem-vindo à Pokédex!</h1>
         <p>
             Explore, cadastre e pesquise Pokémons como um verdadeiro mestre.<br>
-            Clique abaixo para começar sua jornada!
+            Clique abaixo para começar sua jornada e <br> encontrar pokémon que foram cadastrados e perdidos em Caçapava!
         </p>
         <a href="pesquisar.php" class="btn-pokedex">
             Acessar Pokédex
