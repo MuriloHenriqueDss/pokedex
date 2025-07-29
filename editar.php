@@ -12,6 +12,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ataque = (int) $_POST["ataque"];
     $defesa = (int) $_POST["defesa"];
     $obs = $conn->real_escape_string($_POST["observacoes"]);
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Atualizado com sucesso!',
+                text: 'O Pokémon foi atualizado.',
+                confirmButtonColor: '#3b4cca'
+            }).then(() => {
+                window.location.href = 'listar.php';
+            });
+        });
+    </script>";
 
     $foto = $dados['foto']; // mantém a imagem antiga por padrão
 
@@ -39,8 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             WHERE id=$id";
 
     $conn->query($sql);
-    echo "Atualizado com sucesso! <a href='listar.php'>Voltar</a>";
-    exit;
 }
 ?>
 
