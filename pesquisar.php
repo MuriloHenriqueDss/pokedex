@@ -24,12 +24,13 @@ $result = $conn->query($sql);
   position: fixed;
   top: 0;
   left: -250px; /* escondido à esquerda */
-  width: 250px;
+  width: 220px;
   height: 100%;
   transition: left 0.3s ease;
   z-index: 1000;
   padding-top: 80px;
   box-shadow: 4px 0 12px rgba(0,0,0,0.2);
+  background: linear-gradient(180deg, #ffcb05 0%, #ffcb05 50%);
 }
 
 .navbar-pokemon.open {
@@ -51,7 +52,6 @@ $result = $conn->query($sql);
   text-decoration: none;
   color: #2a75bb;
   font-family: 'Press Start 2P', Arial, sans-serif;
-  font-size: 12px;
 }
 
 /* Botão Pokébola */
@@ -59,7 +59,7 @@ $result = $conn->query($sql);
   position: fixed;
   top: 20px;
   left: 20px;
-  background: none;
+  background: linear-gradient(180deg, #ffcb05 0%, #ffcb05 50%);
   border: none;
   cursor: pointer;
   z-index: 1100;
@@ -326,6 +326,7 @@ body {
     <li><a href="cadastrar.php">Cadastrar</a></li>
     <li><a href="pesquisar.php">Pesquisar</a></li>
     <li><a href="listar.php">Listar</a></li>
+    <li><a href="relatorio.php">Relatório</a></li>
   </ul>
 </nav>
 

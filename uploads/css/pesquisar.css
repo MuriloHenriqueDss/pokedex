@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-  .navbar-pokemon {
+
+.navbar-pokemon {
     position: fixed;
     top: 0;
     left: -250px; /* escondido à esquerda */
@@ -10,40 +11,46 @@
     z-index: 1000;
     padding-top: 80px;
     font-family: 'Press Start 2P', Arial, sans-serif;
-  }
+    background: linear-gradient(180deg, #ffcb05 0%, #ffcb05 50%);
+}
 
-  /* Navbar aberto */
-  .navbar-pokemon.open {
+.navbar-pokemon.open {
     left: 0;
-  }
+}
 
-  /* Links */
-  .navbar-links {
+.navbar-links {
     list-style: none;
     padding: 0;
     margin: 0;
-  }
+}
 
-  .navbar-links li {
-    margin: 20px 0;
+.navbar-links li {
+    margin: 24px 0;
     text-align: center;
-  }
+}
 
-  .navbar-links a {
+.navbar-links a {
     text-decoration: none;
-    color: #2a75bb;
-    font-size: 14px;
+    color: #fff;
+    font-size: 1rem;
     display: block;
-    padding: 8px 0;
-    transition: color 0.2s;
-  }
+    padding: 12px 0;
+    border-radius: 12px;
+    background: rgba(59,76,202,0.12);
+    box-shadow: 0 2px 8px #3b4cca22;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+    font-family: 'Press Start 2P', Arial, sans-serif;
+    letter-spacing: 1px;
+}
 
-  .navbar-links a:hover {
-    color: #ee8130;
-  }
+.navbar-links a:hover {
+    background: #ee8130;
+    color: #f7d02c;
+    transform: scale(1.07);
+    box-shadow: 0 4px 16px #ee813044;
+}
 
-  /* Botão da pokébola */
-  .navbar-hamburger {
+.navbar-hamburger {
     position: fixed;
     top: 20px;
     left: 20px;
@@ -52,25 +59,23 @@
     cursor: pointer;
     z-index: 1100;
     animation: pulse 2s infinite;
-  }
+}
 
-  /* Animação da pokébola */
-  @keyframes pulse {
+@keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
     100% { transform: scale(1); }
-  }
+}
 
-  .navbar-hamburger svg {
+.navbar-hamburger svg {
     width: 50px;
     height: 50px;
     transition: transform 0.3s ease;
-  }
+}
 
-  .navbar-hamburger.rotated svg {
+.navbar-hamburger.rotated svg {
     transform: rotate(90deg);
-  }
-
+}
 /* Responsivo para telas pequenas */
 @media (max-width: 700px) {
     .navbar-pokemon {

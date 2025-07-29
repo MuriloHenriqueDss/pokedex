@@ -14,70 +14,80 @@
             background: #f7d02c;
         }
         .navbar-pokemon {
-            background: linear-gradient(90deg, #3b4cca 0%, #ffcb05 100%);
-            padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            border-radius: 0 0 32px 32px;
-            box-shadow: 0 6px 24px #3b4cca33;
+            position: fixed;
+            top: 0;
+            left: -250px; /* escondido à esquerda */
+            width: 220px;
+            height: 100%;
+            box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            padding-top: 80px;
             font-family: 'Press Start 2P', Arial, sans-serif;
-            position: relative;
-            z-index: 100;
+            background: linear-gradient(180deg, #ffcb05 0%, #ffcb05 50%);
         }
-        .navbar-logo-text {
-            color: #fff;
-            text-shadow: 2px 2px #2a75bb;
-            font-size: 1.3rem;
-            margin-left: 12px;
-            letter-spacing: 2px;
+
+        .navbar-pokemon.open {
+            left: 0;
         }
+
+        .navbar-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .navbar-links li {
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            color: #3b4cca;
+            font-size: 1rem;
+            display: block;
+            padding: 12px 0;
+            border-radius: 12px;
+            background: rgba(59,76,202,0.12);
+            box-shadow: 0 2px 8px #3b4cca22;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            font-family: 'Press Start 2P', Arial, sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .navbar-links a:hover {
+            background: #ee8130;
+            color: #f7d02c;
+            transform: scale(1.07);
+            box-shadow: 0 4px 16px #ee813044;
+        }
+
         .navbar-hamburger {
+            position: fixed;
+            top: 20px;
+            left: 20px;
             background: none;
             border: none;
             cursor: pointer;
-            padding: 0;
-            margin-right: 8px;
-            outline: none;
-            transition: transform 0.2s;
+            z-index: 1100;
+            animation: pulse 2s infinite;
         }
-        .navbar-hamburger:active {
-            transform: scale(1.1) rotate(-10deg);
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
-        .navbar-links {
-            flex-direction: column;
-            position: fixed;
-            top: 0;
-            right: -260px;
-            width: 220px;
-            height: 100vh;
-            background: linear-gradient(180deg, #3b4cca 0%, #ffcb05 100%);
-            box-shadow: -4px 0 24px #3b4cca33;
-            padding-top: 80px;
-            gap: 18px;
-            transition: right 0.3s;
-            z-index: 999;
-            list-style: none;
-            margin: 0;
-            padding: 0;
+
+        .navbar-hamburger svg {
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
         }
-        .navbar-links.open {
-            right: 0;
-        }
-        .navbar-links li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.05rem;
-            padding: 12px 18px;
-            border-radius: 16px;
-            margin: 0 8px;
-            display: block;
-            font-family: 'Press Start 2P', Arial, sans-serif;
-            transition: background 0.2s, color 0.2s, transform 0.2s;
-        }
-        .navbar-links li a:hover {
-            background: #ee8130;
-            color: #3b4cca;
-            transform: scale(1.08);
+
+        .navbar-hamburger.rotated svg {
+            transform: rotate(90deg);
         }
         .btn-pokedex {
             display: flex;
@@ -103,25 +113,26 @@
     </style>
 </head>
 <body>
-    <nav class="navbar-pokemon">
-      <button class="navbar-hamburger" id="navbarToggle" aria-label="Abrir menu">
-        <svg viewBox="0 0 32 32" width="40" height="40">
-          <circle cx="16" cy="16" r="14" fill="#fff" stroke="#2a75bb" stroke-width="3"/>
-          <path d="M16,2 a14,14 0 0,1 14,14 h-28 a14,14 0 0,1 14,-14" fill="#ee1c25" stroke="#2a75bb" stroke-width="3"/>
-          <rect x="2" y="14" width="28" height="4" fill="#222"/>
-          <circle cx="16" cy="16" r="5" fill="#fff" stroke="#2a75bb" stroke-width="2"/>
-          <circle cx="16" cy="16" r="2.5" fill="#ccc" stroke="#222" stroke-width="1"/>
-        </svg>
-      </button>
-      <span class="navbar-logo-text">Pokédex</span>
-      <ul class="navbar-links" id="navbarMenu">
-        <li><a href="index.php">Início</a></li>
-        <li><a href="cadastrar.php">Cadastrar</a></li>
-        <li><a href="pesquisar.php">Pesquisar</a></li>
-        <li><a href="sobre.php">Sobre</a></li>
-      </ul>
-    </nav>
 
+<nav class="navbar-pokemon" id="navbar">
+  <button class="navbar-hamburger" id="navbarToggle" aria-label="Abrir menu">
+    <svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="28" cy="28" r="24" fill="#fff" />
+      <path d="M28,4 a24,24 0 0,1 24,24 h-48 a24,24 0 0,1 24,-24" fill="#ee1c25" />
+      <rect x="4" y="24" width="48" height="8" fill="#222" />
+      <circle cx="28" cy="28" r="10" fill="#fff" stroke="#000" stroke-width="4" />
+      <circle cx="28" cy="28" r="5" fill="#ccc" stroke="#222" stroke-width="2" />
+    </svg>
+  </button>
+
+  <ul class="navbar-links" id="navbarMenu">
+    <li><a href="index.php">Início</a></li>
+    <li><a href="cadastrar.php">Cadastrar</a></li>
+    <li><a href="pesquisar.php">Pesquisar</a></li>
+    <li><a href="listar.php">Listar</a></li>
+    <li><a href="relatorio.php">Relatório</a></li>
+  </ul>
+</nav>
     <main class="index-main">
         <h1>Bem-vindo à Pokédex!</h1>
         <p>
@@ -134,9 +145,11 @@
     </main>
     <script>
     const navbarToggle = document.getElementById('navbarToggle');
-    const navbarMenu = document.getElementById('navbarMenu');
+    const navbar = document.getElementById('navbar');
+
     navbarToggle.addEventListener('click', () => {
-        navbarMenu.classList.toggle('open');
+        navbar.classList.toggle('open');
+        navbarToggle.classList.toggle('rotated');
     });
     </script>
 </body>
