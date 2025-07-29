@@ -193,4 +193,70 @@ body {
     border: 4px solid #2a75bb;
     border-radius: 50%;
 }
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Navbar lateral */
+.navbar-pokemon {
+  position: fixed;
+  top: 0;
+  left: -250px; /* escondido à esquerda */
+  width: 250px;
+  height: 100%;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  padding-top: 80px;
+  box-shadow: 4px 0 12px rgba(0,0,0,0.2);
+}
+
+.navbar-pokemon.open {
+  left: 0;
+}
+
+.navbar-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-links li {
+  margin: 20px;
+  text-align: center;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #2a75bb;
+  font-family: 'Press Start 2P', Arial, sans-serif;
+  font-size: 12px;
+}
+
+/* Botão Pokébola */
+.navbar-hamburger {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+  animation: pulse 2s infinite;
+  padding: 0;
+}
+
+.navbar-hamburger svg {
+  display: block;
+  transition: transform 0.3s ease;
+  width: 50px;
+  height: 50px;
+}
+
+.navbar-hamburger.rotated svg {
+  transform: rotate(90deg);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
 

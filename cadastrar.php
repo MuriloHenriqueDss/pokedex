@@ -29,9 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <link rel="stylesheet" href="./uploads/css/cadastrar.css">
-<a href="index.php" class="btn-voltar"> Voltar</a>
 <div class="cadastro-container">
   <h2>Cadastro <br><br> Pokémon Perdido</h2>
+  <a href="index.php" class="btn-voltar"> Voltar</a>
   <form method="post" enctype="multipart/form-data">
     <label>Nome:</label>
     <input type="text" name="nome" required>
