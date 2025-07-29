@@ -1,5 +1,6 @@
 <?php include 'conexao.php'; ?>
 
+<link rel="stylesheet" href="./uploads/css/style.css">
 <form method="get">
     Buscar por nome: <input type="text" name="q">
     <input type="submit" value="Pesquisar">

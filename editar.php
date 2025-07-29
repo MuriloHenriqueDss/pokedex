@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
 }
 ?>
+<link rel="stylesheet" href="./uploads/css/style.css">
 <form method="post">
     Nome: <input type="text" name="nome" value="<?= $dados['nome'] ?>"><br>
     Tipo: <input type="text" name="tipo" value="<?= $dados['tipo'] ?>"><br>

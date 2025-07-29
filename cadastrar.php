@@ -28,16 +28,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+<link rel="stylesheet" href="./uploads/css/cadastrar.css">
+<div class="pokeball-bg">
+  <div class="pokeball"></div>
+  <div class="pokeball"></div>
+  <div class="pokeball"></div>
+  <div class="pokeball"></div>
+</div>
 
-<form method="post" enctype="multipart/form-data">
-    Nome: <input type="text" name="nome" required><br>
-    Tipo: <input type="text" name="tipo"><br>
-    Localização: <input type="text" name="localizacao"><br>
-    Data de Registro: <input type="date" name="data_registro"><br>
-    HP: <input type="number" name="hp"><br>
-    Ataque: <input type="number" name="ataque"><br>
-    Defesa: <input type="number" name="defesa"><br>
-    Observações: <textarea name="observacoes"></textarea><br>
-    Foto: <input type="file" name="foto"><br>
+<div class="cadastro-container">
+  <h2>Cadastro Pokémon</h2>
+  <form method="post" enctype="multipart/form-data">
+    <label>Nome:</label>
+    <input type="text" name="nome" required>
+    <label>Tipo:</label>
+    <input type="text" name="tipo">
+    <label>Localização:</label>
+    <input type="text" name="localizacao">
+    <label>Data de Registro:</label>
+    <input type="date" name="data_registro">
+    <label>HP:</label>
+    <input type="number" name="hp">
+    <label>Ataque:</label>
+    <input type="number" name="ataque">
+    <label>Defesa:</label>
+    <input type="number" name="defesa">
+    <label>Observações:</label>
+    <textarea name="observacoes"></textarea>
+    <label>Foto:</label>
+    <input type="file" name="foto">
     <input type="submit" value="Cadastrar">
-</form>
+  </form>
+</div>

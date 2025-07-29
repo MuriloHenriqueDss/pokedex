@@ -1,4 +1,5 @@
 <?php include 'conexao.php'; ?>
+<link rel="stylesheet" href="./uploads/css/style.css">
 <h1>Relatório de Tipos</h1>
 <?php
 $sql = "SELECT tipo, COUNT(*) as total FROM pokemons GROUP BY tipo ORDER BY total DESC";

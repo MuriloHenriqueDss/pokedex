@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Pokedex Caçapava</title>
-    <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="./uploads/css/style.css">
 </head>
 <body>
     <h1>Pokedex - Pokémons Perdidos em Caçapava</h1>

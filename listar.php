@@ -1,5 +1,6 @@
 <?php include 'conexao.php'; ?>
 
+<link rel="stylesheet" href="./uploads/css/style.css">
 <h1>Lista de Pokémons Encontrados</h1>
 <?php
 $result = $conn->query("SELECT * FROM pokemons");
