@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $foto = "";
     if (isset($_FILES["foto"]) && $_FILES["foto"]["error"] == 0) {
         $ext = pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION);
-        $foto = "uploads/" . uniqid() . "." . $ext;
+        $foto = "uploads/img/" . uniqid() . "." . $ext;
         move_uploaded_file($_FILES["foto"]["tmp_name"], $foto);
     }
 
