@@ -12,6 +12,7 @@ $result = $conn->query($sql);
 ?>
 <link rel="stylesheet" href="./uploads/css/pesquisar.css">
 
+<!-- Pokébolas no fundo -->
 <div class="pokeball-bg">
   <div class="pokeball"></div>
   <div class="pokeball"></div>
@@ -19,6 +20,7 @@ $result = $conn->query($sql);
   <div class="pokeball"></div>
 </div>
 
+<!-- Navbar -->
 <nav class="navbar-pokemon">
   <button class="navbar-hamburger" id="navbarToggle" aria-label="Abrir menu">
     <svg viewBox="0 0 32 32" width="40" height="40">
@@ -38,6 +40,7 @@ $result = $conn->query($sql);
   </ul>
 </nav>
 
+<!-- Formulário de pesquisa -->
 <div style="text-align:center; margin-top:40px;">
   <form method="get" action="pesquisar.php">
     <input type="text" name="pesquisa" placeholder="Pesquisar Pokémon" value="<?php echo htmlspecialchars($pesquisa); ?>" style="padding:10px; border-radius:12px; border:2px solid #3b4cca; font-family:'Press Start 2P',Arial,sans-serif; width:220px;">
@@ -45,30 +48,27 @@ $result = $conn->query($sql);
   </form>
 </div>
 
+<!-- Container dos cards -->
 <div class="pesquisa-container">
 <?php while($row = $result->fetch_assoc()): ?>
-  <div class="pokemon-card">
-<div class="pokeball-tip">
-  <svg viewBox="0 0 56 56">
-    <!-- Metade superior vermelha -->
-    <path d="M28,4
-             a24,24 0 0,1 24,24
-             h-48
-             a24,24 0 0,1 24,-24"
-          fill="#ee1c25" stroke="#000" stroke-width="4"/>
-    <!-- Metade inferior branca -->
-    <path d="M52,28
-             a24,24 0 0,1 -48,0
-             h48"
-          fill="#fff" stroke="#000" stroke-width="4"/>
-    <!-- Faixa preta -->
-    <rect x="4" y="24" width="48" height="8" fill="#222"/>
-    <!-- Círculo central branco -->
-    <circle cx="28" cy="28" r="10" fill="#fff" stroke="#000" stroke-width="4"/>
-    <!-- Círculo central cinza -->
-    <circle cx="28" cy="28" r="5" fill="#ccc" stroke="#222" stroke-width="2"/>
-  </svg>
-</div>
+  <div class="pokemon-card" onclick="abrirModal(
+    '<?php echo addslashes($row['nome']); ?>',
+    '<?php echo addslashes($row['tipo']); ?>',
+    '<?php echo (int)$row['hp']; ?>',
+    '<?php echo (int)$row['ataque']; ?>',
+    '<?php echo (int)$row['defesa']; ?>',
+    '<?php echo addslashes($row['localizacao']); ?>',
+    '<?php echo addslashes($row['foto']); ?>'
+  )">
+    <div class="pokeball-tip">
+      <svg viewBox="0 0 56 56">
+        <path d="M28,4 a24,24 0 0,1 24,24 h-48 a24,24 0 0,1 24,-24" fill="#ee1c25" stroke="#000" stroke-width="4"/>
+        <path d="M52,28 a24,24 0 0,1 -48,0 h48" fill="#fff" stroke="#000" stroke-width="4"/>
+        <rect x="4" y="24" width="48" height="8" fill="#222"/>
+        <circle cx="28" cy="28" r="10" fill="#fff" stroke="#000" stroke-width="4"/>
+        <circle cx="28" cy="28" r="5" fill="#ccc" stroke="#222" stroke-width="2"/>
+      </svg>
+    </div>
     <?php if($row['foto']): ?>
       <img src="<?php echo htmlspecialchars($row['foto']); ?>" alt="Foto" class="foto">
     <?php endif; ?>
@@ -83,3 +83,35 @@ $result = $conn->query($sql);
   </div>
 <?php endwhile; ?>
 </div>
+
+<!-- Modal de detalhes do Pokémon -->
+<div id="pokemonModal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close-btn" onclick="fecharModal()">&times;</span>
+    <img id="modalFoto" src="" alt="Imagem Pokémon">
+    <h2 id="modalNome"></h2>
+    <p><strong>Tipo:</strong> <span id="modalTipo"></span></p>
+    <p><strong>HP:</strong> <span id="modalHp"></span></p>
+    <p><strong>Ataque:</strong> <span id="modalAtaque"></span></p>
+    <p><strong>Defesa:</strong> <span id="modalDefesa"></span></p>
+    <p><strong>Localização:</strong> <span id="modalLocalizacao"></span></p>
+  </div>
+</div>
+
+<!-- Script para abrir/fechar o modal -->
+<script>
+  function abrirModal(nome, tipo, hp, ataque, defesa, localizacao, foto) {
+    document.getElementById('modalNome').innerText = nome;
+    document.getElementById('modalTipo').innerText = tipo;
+    document.getElementById('modalHp').innerText = hp;
+    document.getElementById('modalAtaque').innerText = ataque;
+    document.getElementById('modalDefesa').innerText = defesa;
+    document.getElementById('modalLocalizacao').innerText = localizacao;
+    document.getElementById('modalFoto').src = foto;
+    document.getElementById('pokemonModal').classList.remove('hidden');
+  }
+
+  function fecharModal() {
+    document.getElementById('pokemonModal').classList.add('hidden');
+  }
+</script>

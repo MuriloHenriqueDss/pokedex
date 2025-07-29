@@ -29,12 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <link rel="stylesheet" href="./uploads/css/cadastrar.css">
-<div class="pokeball-bg">
-  <div class="pokeball"></div>
-  <div class="pokeball"></div>
-  <div class="pokeball"></div>
-  <div class="pokeball"></div>
-</div>
 
 <div class="cadastro-container">
   <h2>Cadastro Pokémon</h2>
