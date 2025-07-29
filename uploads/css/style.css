@@ -1,0 +1,13 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f8ff;
+    padding: 20px;
+}
+h1 {
+    color: #ff4500;
+}
+input, textarea {
+    margin-bottom: 10px;
+    display: block;
+    width: 300px;
+}
