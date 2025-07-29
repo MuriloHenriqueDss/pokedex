@@ -36,7 +36,7 @@ $result = $conn->query($sql);
     <li><a href="index.php">Início</a></li>
     <li><a href="cadastrar.php">Cadastrar</a></li>
     <li><a href="pesquisar.php">Pesquisar</a></li>
-    <li><a href="sobre.php">Sobre</a></li>
+    <li><a href="listar.php">Listar</a></li>
   </ul>
 </nav>
 

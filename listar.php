@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="./uploads/css/estilo-lista.css">
 </head>
 <body>
-    <link rel="stylesheet" href="./uploads/css/cadastrar.css">
+    <link rel="stylesheet" href="uploads/js/javascript.js">
     <div class="pokeball-fundo">
         <div class="pokeball"></div>
         <div class="pokeball"></div>
         <div class="pokeball"></div>
         <div class="pokeball"></div>
     </div>
+
 
     <div class="container-lista">
         <h1 class="titulo">Pokémons Encontrados</h1>
